@@ -640,7 +640,8 @@ If there is no 'previous' buffer attempt to find a non-boring buffer to initiali
       (message (format "elcord: %s" elcord-idle-message )))
 
     ;;hacky way to stop updates and store elapsed time
-    (cancel-timer elcord--update-presence-timer)
+    (when (timerp elcord--update-presence-timer)
+      (cancel-timer elcord--update-presence-timer))
     (setq elcord--startup-time (string-to-number (format-time-string "%s" (time-subtract nil elcord--startup-time)))
 
           elcord--idle-status t)
